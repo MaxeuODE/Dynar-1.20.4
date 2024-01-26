@@ -1,5 +1,6 @@
 package com.maxeu.dynar;
 
+import com.maxeu.dynar.registry.ItemRegister;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -9,7 +10,8 @@ public class Dynar implements ModInitializer {
 	// This logger is used to write text to the console and the log file.
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
-    public static final Logger LOGGER = LoggerFactory.getLogger("dynar");
+    public static final String MOD_ID = "dynar";
+	public static final Logger LOGGER = LoggerFactory.getLogger("dynar");
 
 	@Override
 	public void onInitialize() {
@@ -18,5 +20,6 @@ public class Dynar implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+		ItemRegister.onRegistry();
 	}
 }
