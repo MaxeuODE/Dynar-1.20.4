@@ -55,7 +55,7 @@ public class Board extends Item {
 
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
-        super.appendTooltip(stack, world, tooltip, context);
+        super.appendTooltip(stack, world,tooltip, context);
         if(coolTick%20==0)tooltip.add(Text.literal(String.valueOf((coolTick+120)/20)));
     }
 }

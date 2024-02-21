@@ -1,5 +1,7 @@
 package com.maxeu.dynar;
 
+import com.maxeu.dynar.command.CustomCommand;
+import com.maxeu.dynar.command.ParticleCommand;
 import com.maxeu.dynar.registry.ItemRegister;
 import net.fabricmc.api.ModInitializer;
 
@@ -13,5 +15,7 @@ public class Dynar implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ItemRegister.onRegistry();
+		CustomCommand.addCommand();
+		ParticleCommand.particleCommand();
 	}
 }
