@@ -37,7 +37,6 @@ public class Board extends Item {
             coolTick--;
         }
     }
-
     @Override
     public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
         if (coolTick <= -120) {
