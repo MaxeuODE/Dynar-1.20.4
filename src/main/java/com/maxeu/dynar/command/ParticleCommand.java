@@ -26,7 +26,7 @@ public class ParticleCommand {
                     float[] center = {  getFloat(context, "float3"),
                                         getFloat(context, "float4"),
                                         getFloat(context, "float5")};
-                    OlaSphere.olaStatic(numPoint,radium,center);//context.getSource().getServer());
+                    OlaSphere.olaStatic(numPoint,radium,center, context.getSource().getServer());
                     return 1;
                 })))))));
 //        dispatcher.register(literal("sphere-dynamic")
