@@ -16,7 +16,7 @@ public class NetworkHandler {
 
     public static void init() {
         ClientPlayNetworking.registerGlobalReceiver(POSITION, (client, handler, buf, responseSender) ->
-                ParticleSpawner.spawnParticle(buf, client));
+                ParticleSpawner.spawnCommonParticle(buf, client));
     }
 
     public static void sendLongList(ServerPlayerEntity player, List<long[]> vec) {

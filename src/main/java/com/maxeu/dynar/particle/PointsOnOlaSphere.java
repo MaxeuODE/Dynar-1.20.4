@@ -3,15 +3,16 @@ package com.maxeu.dynar.particle;
 import com.maxeu.dynar.network.NetworkHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.util.math.Vec3d;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OlaSphere {
-    public static void olaStatic(int numPoints, float radius, float[] center, MinecraftServer server) {
-        generatePolyhedronVertices(numPoints, radius, center, server);
+public class PointsOnOlaSphere {
+    public static void olaStatic(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server){
+        generatePointsOnOlaSphere(numPoints,radius,center,velocity,server);
     }
-    private static void generatePolyhedronVertices(int numPoints, float radius, float[] center, MinecraftServer server) {
+    private static void generatePointsOnOlaSphere(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server) {
         List<long[]> vec = new ArrayList<>();
         //获取ServerPlayerEntity
         List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
@@ -25,10 +26,16 @@ public class OlaSphere {
             double sinPhi = Math.sin(phi);
             double cosTheta = Math.cos(theta);
             double sinTheta = Math.sin(theta);
-            double x = center[0] + radius * cosTheta * sinPhi;
-            double y = center[1] + radius * sinTheta * sinPhi;
-            double z = center[2] + radius * cosPhi;
-            long[] pos = new long[]{Double.doubleToLongBits(x), Double.doubleToLongBits(y), Double.doubleToLongBits(z), 0, 0, 0};
+            double x = center.x + radius * cosTheta * sinPhi;
+            double y = center.y + radius * sinTheta * sinPhi;
+            double z = center.z + radius * cosPhi;
+            long[] pos = new long[]{
+                    Double.doubleToLongBits(x),
+                    Double.doubleToLongBits(y),
+                    Double.doubleToLongBits(z),
+                    Double.doubleToLongBits(velocity.x),
+                    Double.doubleToLongBits(velocity.y),
+                    Double.doubleToLongBits(velocity.z)};
             vec.add(pos);
         }
         //网络通信
