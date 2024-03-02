@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParticleSpawner {
-    public static void spawnCommonParticle(PacketByteBuf buf, MinecraftClient client){
+    public static void spawnCommonParticle(PacketByteBuf buf, MinecraftClient client) {
         //获得包并生成粒子
         List<long[]> poses = buf.readCollection(ArrayList::new, PacketByteBuf::readLongArray);
         if (client.world != null) {

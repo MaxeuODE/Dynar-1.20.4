@@ -20,8 +20,8 @@ public class ParticleCommand {
                             .requires(source -> source.hasPermissionLevel(2))
                             .then(argument("int1", integer())
                                     .then(argument("float2", floatArg())
-                                            .then(argument("center", Vec3ArgumentType.vec3())
-                                                    .then(argument("velocity", Vec3ArgumentType.vec3())
+                                            .then(argument("center", Vec3ArgumentType.vec3(false))
+                                                    .then(argument("velocity", Vec3ArgumentType.vec3(false))
                                                             .executes(context -> {
                                                                 int numPoint = getInteger(context, "int1");
                                                                 float radium = getFloat(context, "float2");
@@ -34,8 +34,8 @@ public class ParticleCommand {
                             .requires(source -> source.hasPermissionLevel(2))
                             .then(argument("numPoints", integer())
                                     .then(argument("radius", floatArg())
-                                            .then(argument("center", Vec3ArgumentType.vec3()))
-                                            .then(argument("velocity", Vec3ArgumentType.vec3()))
+                                            .then(argument("center", Vec3ArgumentType.vec3(false)))
+                                            .then(argument("velocity", Vec3ArgumentType.vec3(false)))
                                             .executes(context -> {
                                                 int numPoint = getInteger(context, "numPoints");
                                                 float radium = getFloat(context, "radius");
