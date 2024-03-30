@@ -1,6 +1,5 @@
-package com.maxeu.dynar.particle;
+package com.maxeu.dynar.shapes;
 
-import com.maxeu.dynar.network.NetworkHandler;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -8,11 +7,8 @@ import net.minecraft.util.math.Vec3d;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PointsOnOlaSphere {
-    public static void olaStatic(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server){
-        generatePointsOnOlaSphere(numPoints,radius,center,velocity,server);
-    }
-    public static void generatePointsOnOlaSphere(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server) {
+public class OlaSphereLattice {
+    public static List<long[]> generateOlaSphereLattice(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server) {
         List<long[]> vec = new ArrayList<>();
         //获取ServerPlayerEntity
         List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();
@@ -29,22 +25,18 @@ public class PointsOnOlaSphere {
             double vX = radius * cosTheta * sinPhi;
             double vY = radius * sinTheta * sinPhi;
             double vZ = radius * cosPhi;
-            double x = center.x + vX;
-            double y = center.y + vY;
-            double z = center.z + vZ;
+            double PosX = center.x + vX;
+            double PosY = center.y + vY;
+            double PosZ = center.z + vZ;
             long[] pos = new long[]{
-                    Double.doubleToLongBits(x),
-                    Double.doubleToLongBits(y),
-                    Double.doubleToLongBits(z),
-                    Double.doubleToLongBits(velocity.x+vX),
-                    Double.doubleToLongBits(velocity.y+vY),
-                    Double.doubleToLongBits(velocity.z+vZ)};
+                    Double.doubleToLongBits(PosX),
+                    Double.doubleToLongBits(PosY),
+                    Double.doubleToLongBits(PosZ),
+                    Double.doubleToLongBits(velocity.x + vX),
+                    Double.doubleToLongBits(velocity.y + vY),
+                    Double.doubleToLongBits(velocity.z + vZ)};
             vec.add(pos);
         }
-        //网络通信
-        for (ServerPlayerEntity player : players) {
-            NetworkHandler.sendLongList(player,vec);
-        }
+        return vec;
     }
 }
-

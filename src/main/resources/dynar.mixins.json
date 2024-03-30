@@ -5,10 +5,9 @@
   "injectors": {
     "defaultRequire": 1
   },
-  "mixins": [
-    "ExampleMixin"
-  ],
   "client": [
-    "ParticleMixin"
+    "EndRodMixin",
+    "ParticleLimitMixin",
+    "ParticleBoundsMixin"
   ]
 }
