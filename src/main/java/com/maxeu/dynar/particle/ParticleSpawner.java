@@ -14,7 +14,7 @@ public class ParticleSpawner {
         if (client.world != null) {
             for (long[] pos : poses) {
                 client.world.addParticle(
-                        ParticleTypes.END_ROD, true,
+                        ParticleTypes.SOUL_FIRE_FLAME, true,
                         Double.longBitsToDouble(pos[0]),
                         Double.longBitsToDouble(pos[1]),
                         Double.longBitsToDouble(pos[2]),

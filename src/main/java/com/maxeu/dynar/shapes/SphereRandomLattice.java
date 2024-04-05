@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class SphereRandomLattice {
     public static void generateRandomPoints(int numPoints, float radius, Vec3d center, Vec3d velocity, MinecraftServer server, boolean bl) {
-        Random rand = new Random(0); // 为了可重复性设置随机种子
+        Random rand = new Random(); // 为了可重复性设置随机种子
         List<long[]> vec = new ArrayList<>();
         //获取ServerPlayerEntity
         List<ServerPlayerEntity> players = server.getPlayerManager().getPlayerList();

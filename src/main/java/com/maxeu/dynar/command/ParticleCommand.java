@@ -26,7 +26,7 @@ public class ParticleCommand {
                                                                 float radium = getFloat(context, "float2");
                                                                 Vec3d center = Vec3ArgumentType.getVec3(context, "center");
                                                                 Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
-                                                                ParticleBuilder.olaSphere(numPoint, radium, center, velocity, context.getSource().getServer(),false);
+                                                                ParticleBuilder.olaSphere(numPoint, radium, center, velocity, context.getSource().getServer(), false);
                                                                 return 1;
                                                             }))))));
                     dispatcher.register(literal("sphere-dynamic-ola")
@@ -40,37 +40,37 @@ public class ParticleCommand {
                                                                 float radium = getFloat(context, "float2");
                                                                 Vec3d center = Vec3ArgumentType.getVec3(context, "center");
                                                                 Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
-                                                                ParticleBuilder.olaSphere(numPoint, radium, center, velocity, context.getSource().getServer(),true);
+                                                                ParticleBuilder.olaSphere(numPoint, radium, center, velocity, context.getSource().getServer(), true);
                                                                 return 1;
                                                             }))))));
                     dispatcher.register(literal("sphere-static-random")
                             .requires(source -> source.hasPermissionLevel(2))
                             .then(argument("numPoints", integer())
                                     .then(argument("radius", floatArg())
-                                            .then(argument("center", Vec3ArgumentType.vec3(false)))
-                                            .then(argument("velocity", Vec3ArgumentType.vec3(false)))
-                                            .executes(context -> {
-                                                int numPoint = getInteger(context, "numPoints");
-                                                float radium = getFloat(context, "radius");
-                                                Vec3d center = Vec3ArgumentType.getVec3(context, "center");
-                                                Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
-                                                ParticleBuilder.randomSphere(numPoint, radium, center, velocity, context.getSource().getServer(),false);
-                                                return 1;
-                                            }))));
-            dispatcher.register(literal("sphere-dynamic-random")
-                    .requires(source -> source.hasPermissionLevel(2))
-                    .then(argument("numPoints", integer())
-                            .then(argument("radius", floatArg())
-                                    .then(argument("center", Vec3ArgumentType.vec3(false)))
-                                    .then(argument("velocity", Vec3ArgumentType.vec3(false)))
-                                    .executes(context -> {
-                                        int numPoint = getInteger(context, "numPoints");
-                                        float radium = getFloat(context, "radius");
-                                        Vec3d center = Vec3ArgumentType.getVec3(context, "center");
-                                        Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
-                                        ParticleBuilder.randomSphere(numPoint, radium, center, velocity, context.getSource().getServer(),true);
-                                        return 1;
-                                    }))));
+                                            .then(argument("center", Vec3ArgumentType.vec3(false))
+                                                    .then(argument("velocity", Vec3ArgumentType.vec3(false))
+                                                            .executes(context -> {
+                                                                int numPoint = getInteger(context, "numPoints");
+                                                                float radium = getFloat(context, "radius");
+                                                                Vec3d center = Vec3ArgumentType.getVec3(context, "center");
+                                                                Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
+                                                                ParticleBuilder.randomSphere(numPoint, radium, center, velocity, context.getSource().getServer(), false);
+                                                                return 1;
+                                                            }))))));
+                    dispatcher.register(literal("sphere-dynamic-random")
+                            .requires(source -> source.hasPermissionLevel(2))
+                            .then(argument("numPoints", integer())
+                                    .then(argument("radius", floatArg())
+                                            .then(argument("center", Vec3ArgumentType.vec3(false))
+                                                    .then(argument("velocity", Vec3ArgumentType.vec3(false))
+                                                            .executes(context -> {
+                                                                int numPoint = getInteger(context, "numPoints");
+                                                                float radium = getFloat(context, "radius");
+                                                                Vec3d center = Vec3ArgumentType.getVec3(context, "center");
+                                                                Vec3d velocity = Vec3ArgumentType.getVec3(context, "velocity");
+                                                                ParticleBuilder.randomSphere(numPoint, radium, center, velocity, context.getSource().getServer(), true);
+                                                                return 1;
+                                                            }))))));
                 }
         );
     }
