@@ -8,10 +8,11 @@ import org.slf4j.LoggerFactory;
 
 public class Dynar implements ModInitializer {
     public static final String MOD_ID = "dynar";
-	public static final Logger LOGGER = LoggerFactory.getLogger("dynar");
-	@Override
-	public void onInitialize() {
-		ParticleCommand.particleCommand();
-		NetworkHandler.init();
-	}
+    public static final Logger LOGGER = LoggerFactory.getLogger("dynar");
+
+    @Override
+    public void onInitialize() {
+        ParticleCommand.particleCommand();
+        NetworkHandler.init();
+    }
 }

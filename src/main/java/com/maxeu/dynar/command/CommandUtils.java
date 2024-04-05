@@ -11,17 +11,17 @@ import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
 public class CommandUtils {
-    public static int showPlayers(ServerCommandSource source){
-        World world=source.getWorld();
-        PlayerEntity player=source.getPlayer();
-        if (world!=null&&player!=null){
+    public static int showPlayers(ServerCommandSource source) {
+        World world = source.getWorld();
+        PlayerEntity player = source.getPlayer();
+        if (world != null && player != null) {
             player.sendMessage(Text.literal(world.getPlayers().toString()));
         }
         return 1;
     }
 
-    public static CompletableFuture<Suggestions> getSuggestions(SuggestionsBuilder builder){
-        final String[] agt={"type","notType","suggest"};
+    public static CompletableFuture<Suggestions> getSuggestions(SuggestionsBuilder builder) {
+        final String[] agt = {"type", "notType", "suggest"};
         for (String string : agt) {
             builder.suggest(string);
         }
