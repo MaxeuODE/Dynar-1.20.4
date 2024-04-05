@@ -46,6 +46,7 @@ public class ParticleBoundsMixin {
         BlockState nextBlockState = world.getBlockState(nextBlockPos);
         VoxelShape nextBlockVoxel = nextBlockState.getCollisionShape(world, nextBlockPos);
         BlockHitResult result = world.raycastBlock(originPos, nextPos, nextBlockPos, nextBlockVoxel, nextBlockState);
+
         if (result != null) {
             if (result.getSide() == Direction.DOWN || result.getSide() == Direction.UP) {
                 velocityY = -velocityY;
