@@ -53,7 +53,7 @@ public class SphereRandomLattice {
                     Double.doubleToLongBits(velocity.z)};
             vec.add(pos);
         }
-        //网络通信
+
         for (ServerPlayerEntity player : players) {
             NetworkHandler.sendLongList(player, vec);
         }

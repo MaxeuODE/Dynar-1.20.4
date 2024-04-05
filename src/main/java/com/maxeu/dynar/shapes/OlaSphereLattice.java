@@ -61,6 +61,7 @@ public class OlaSphereLattice {
                     Double.doubleToLongBits(velocity.z)};
             vec.add(pos);
         }
+
         for (ServerPlayerEntity player : players) {
             NetworkHandler.sendLongList(player, vec);
         }
