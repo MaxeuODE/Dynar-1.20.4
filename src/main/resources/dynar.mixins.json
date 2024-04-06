@@ -7,11 +7,12 @@
   },
   "client": [
     "EndRodMixin",
-    "ParticleBoundsMixin",
+    "ParticleCollisionMixin",
     "ParticleLimitMixin"
   ],
   "mixins": [
     "DustParticleMixin",
+    "ParticleGravityMixin",
     "DustTransitionMixin"
   ]
 }

@@ -18,7 +18,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import static java.lang.Math.floor;
 
 @Mixin(Particle.class)
-public class ParticleBoundsMixin {
+public class ParticleCollisionMixin {
     @Shadow
     protected double x;
     @Shadow
@@ -37,16 +37,15 @@ public class ParticleBoundsMixin {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void addCollision(CallbackInfo ci) {
-        double nextPosX = x + velocityX;
-        double nextPosY = y + velocityY;
-        double nextPosZ = z + velocityZ;
-        Vec3d originPos = new Vec3d(x, y, z);
-        Vec3d nextPos = new Vec3d(nextPosX, nextPosY, nextPosZ);
-        BlockPos nextBlockPos = new BlockPos((int) floor(nextPosX), (int) floor(nextPosY), (int) floor(nextPosZ));
-        BlockState nextBlockState = world.getBlockState(nextBlockPos);
-        VoxelShape nextBlockVoxel = nextBlockState.getCollisionShape(world, nextBlockPos);
-        BlockHitResult result = world.raycastBlock(originPos, nextPos, nextBlockPos, nextBlockVoxel, nextBlockState);
-
+        final double nextPosX = x + velocityX;
+        final double nextPosY = y + velocityY;
+        final double nextPosZ = z + velocityZ;
+        final Vec3d originPos = new Vec3d(x, y, z);
+        final Vec3d nextPos = new Vec3d(nextPosX, nextPosY, nextPosZ);
+        final BlockPos nextBlockPos = new BlockPos((int) floor(nextPosX), (int) floor(nextPosY), (int) floor(nextPosZ));
+        final BlockState nextBlockState = world.getBlockState(nextBlockPos);
+        final VoxelShape nextBlockVoxel = nextBlockState.getCollisionShape(world, nextBlockPos);
+        final BlockHitResult result = world.raycastBlock(originPos, nextPos, nextBlockPos, nextBlockVoxel, nextBlockState);
         if (result != null) {
             if (result.getSide() == Direction.DOWN || result.getSide() == Direction.UP) {
                 velocityY = -velocityY;

@@ -3,8 +3,9 @@ package com.maxeu.dynar.particle;
 import com.maxeu.dynar.mixin.DustParticleMixin;
 import com.maxeu.dynar.mixin.DustTransitionMixin;
 import com.maxeu.dynar.network.NetworkHandler;
-import com.mojang.authlib.minecraft.client.MinecraftClient;
-import net.minecraft.particle.*;
+import net.minecraft.particle.DustColorTransitionParticleEffect;
+import net.minecraft.particle.DustParticleEffect;
+import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.math.Vec3d;
@@ -62,7 +63,6 @@ public class ParticleBuilder {
                         Double.doubleToLongBits(velocity.z)};
             }
             posList.add(pos);
-
         }
         //send the list to the client
         for (ServerPlayerEntity player : players) {
@@ -71,6 +71,11 @@ public class ParticleBuilder {
         }
     }
 
+    /**
+     * Converting the effect to {@link ParticleInfo} for networking.
+     * @param effect the {@link ParticleEffect} needed to be converted
+     * @return the converted {@link ParticleInfo}
+     */
     private static ParticleInfo toParticleInfo(@NotNull ParticleEffect effect) {
         final double[] info;
         if (effect instanceof DustColorTransitionParticleEffect transition) {

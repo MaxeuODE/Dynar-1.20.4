@@ -1,12 +1,9 @@
 package com.maxeu.dynar.mixin;
 
-import net.minecraft.client.particle.AbstractDustParticle;
 import net.minecraft.particle.AbstractDustParticleEffect;
 import org.joml.Vector3f;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
-
-import java.util.Vector;
 
 @Mixin(AbstractDustParticleEffect.class)
 public interface DustParticleMixin {
