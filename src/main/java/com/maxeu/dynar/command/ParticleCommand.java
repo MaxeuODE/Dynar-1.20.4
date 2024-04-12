@@ -23,6 +23,11 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class ParticleCommand {
+
+    public static void init() {
+        particleSphereCommand();
+    }
+
     /**
      * Executing the /sphere command to create a sphere.
      * @param context {@link CommandContext<ServerCommandSource>}
@@ -45,9 +50,9 @@ public class ParticleCommand {
     }
 
     /**
-     * command structure: /sphere [amount : {@code  int}] [radius : {@code  float}] [center : {@link Vec3d}] [velocity : {@link Vec3d}] [particle : {@link ParticleEffectArgumentType}] [dynamic : {@code boolean}] [random : {@code boolean}]
+     * command structure: /sphere [amount: {@code  int}] [radius: {@code  float}] [center: {@link Vec3d}] [velocity: {@link Vec3d}] [particle: {@link ParticleEffectArgumentType}] [dynamic: {@code boolean}] [random: {@code boolean}]
      */
-    public static void particleCommand() {
+    public static void particleSphereCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(literal("sphere")
                     .requires(source -> source.hasPermissionLevel(2))

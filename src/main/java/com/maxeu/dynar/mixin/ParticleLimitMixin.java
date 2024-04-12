@@ -1,6 +1,8 @@
 package com.maxeu.dynar.mixin;
 
 import com.google.common.collect.EvictingQueue;
+import com.maxeu.dynar.config.ModConfig;
+import com.maxeu.dynar.particle.ParticleLimits;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.particle.ParticleTextureSheet;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,8 +14,8 @@ import java.util.function.Function;
 @Mixin(ParticleManager.class)
 public class ParticleLimitMixin {
     @ModifyArg(method = "tick", at = @At(value = "INVOKE", target = "Ljava/util/Map;computeIfAbsent(Ljava/lang/Object;Ljava/util/function/Function;)Ljava/lang/Object;"), index = 1)
-    private Function<ParticleTextureSheet, EvictingQueue<?>> limitChanger(Function<? super ParticleTextureSheet, ? extends EvictingQueue<?>> mappingFunction) {
-        int amount = 285476;
+    private Function<ParticleTextureSheet, EvictingQueue<?>> changeLimit(Function<? super ParticleTextureSheet, ? extends EvictingQueue<?>> mappingFunction) {
+        final int amount = ParticleLimits.getParticleLimit() != -1 ? ParticleLimits.getParticleLimit() : ModConfig.INSTANCE.maxAmount;
         return sheet -> EvictingQueue.create(amount);
     }
 }

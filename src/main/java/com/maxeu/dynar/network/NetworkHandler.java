@@ -1,8 +1,8 @@
 package com.maxeu.dynar.network;
 
-import com.maxeu.dynar.Dynar;
 import com.maxeu.dynar.particle.ParticleInfo;
 import com.maxeu.dynar.particle.ParticleSpawner;
+import com.maxeu.dynar.utils.Util;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class NetworkHandler {
-    public static final Identifier PARTICLE_INFO = new Identifier(Dynar.MOD_ID, "particle_info");
+    public static final Identifier PARTICLE_INFO = new Identifier(Util.MOD_ID, "particle_info");
 
     public static void init() {
         ClientPlayNetworking.registerGlobalReceiver(PARTICLE_INFO, (client, handler, buf, responseSender) -> {
