@@ -5,7 +5,7 @@ import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
 public class ParticleLimits {
-    private static int particleLimit = 16384;
+    private static int particleLimit = -1;
 
 
     public static int getParticleLimit() {
