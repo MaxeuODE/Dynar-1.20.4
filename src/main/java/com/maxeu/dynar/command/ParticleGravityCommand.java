@@ -10,8 +10,6 @@ import static net.minecraft.server.command.CommandManager.argument;
 import static net.minecraft.server.command.CommandManager.literal;
 
 public class ParticleGravityCommand {
-//    public static void particleCommand() {
-//        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment)
     public static void particleGravityCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
             dispatcher.register(literal("particle-gravity")

@@ -71,6 +71,8 @@ public class ParticleBuilder {
         }
     }
 
+
+
     /**
      * Converting the effect to {@link ParticleInfo} for networking.
      * @param effect the {@link ParticleEffect} needed to be converted

@@ -4,7 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 
 @Environment(EnvType.CLIENT)
-public class ParticleLimits {
+public class ParticleLimit {
     private static int particleLimit = -1;
 
 
@@ -13,6 +13,6 @@ public class ParticleLimits {
     }
 
     public static void setParticleLimit(int particleLimit) {
-        ParticleLimits.particleLimit = particleLimit;
+        ParticleLimit.particleLimit = particleLimit;
     }
 }

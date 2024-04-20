@@ -1,6 +1,6 @@
 package com.maxeu.dynar.command;
 
-import com.maxeu.dynar.particle.ParticleLimits;
+import com.maxeu.dynar.particle.ParticleLimit;
 import com.maxeu.dynar.utils.Util;
 import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.context.CommandContext;
@@ -38,14 +38,14 @@ public class ClientParticleCommand {
     }
 
     private static int getCurrentLimit(CommandContext<FabricClientCommandSource> context) {
-        context.getSource().getPlayer().sendMessage(Text.literal("Current particle limit is ").append(Text.literal(String.valueOf(ParticleLimits.getParticleLimit()))));
+        context.getSource().getPlayer().sendMessage(Text.literal("Current particle limit is ").append(Text.literal(String.valueOf(ParticleLimit.getParticleLimit()))));
         return 1;
     }
 
     private static int setLimit(CommandContext<FabricClientCommandSource> context) {
         final int value = getInteger(context, "amount");
-        ParticleLimits.setParticleLimit(value);
-        context.getSource().getPlayer().sendMessage(Text.literal("The limit has been successfully modified to ").append(Text.literal(String.valueOf(ParticleLimits.getParticleLimit()))));
+        ParticleLimit.setParticleLimit(value);
+        context.getSource().getPlayer().sendMessage(Text.literal("The limit has been successfully modified to ").append(Text.literal(String.valueOf(ParticleLimit.getParticleLimit()))));
         context.getSource().getPlayer().sendMessage(Text.literal("Rejoin the world to apply."));
         return 1;
     }

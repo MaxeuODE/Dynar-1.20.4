@@ -1,13 +1,17 @@
 package com.maxeu.dynar.command;
 
 import com.maxeu.dynar.particle.ParticleBuilder;
+import com.maxeu.dynar.particle.ParticleSwitch;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.ParticleEffectArgumentType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
+
+import java.util.Objects;
 
 import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
@@ -30,9 +34,10 @@ public class ParticleCommand {
 
     /**
      * Executing the /sphere command to create a sphere.
+     *
      * @param context {@link CommandContext<ServerCommandSource>}
      * @param dynamic whether the sphere is dynamic or not.
-     * @param random whether the particle is generated randomly on the surface.
+     * @param random  whether the particle is generated randomly on the surface.
      * @return 1
      */
     private static int generateSphere(CommandContext<ServerCommandSource> context, boolean dynamic, boolean random) {
@@ -46,6 +51,17 @@ public class ParticleCommand {
             rand = context.getSource().getWorld().random;
         }
         ParticleBuilder.sphere(amount, radius, center, velocity, effect, context.getSource().getServer(), dynamic, rand);
+        return 1;
+    }
+
+    private static int setCollisionSwitch(CommandContext<ServerCommandSource> context) {
+        final boolean bl = getBool(context, "collision");
+        ParticleSwitch.setCollisionSwitch(bl);
+        if (bl) {
+            Objects.requireNonNull(context.getSource().getPlayer()).sendMessage(Text.literal("collision ON"));
+        } else {
+            Objects.requireNonNull(context.getSource().getPlayer()).sendMessage(Text.literal("collision OFF"));
+        }
         return 1;
     }
 
@@ -74,6 +90,14 @@ public class ParticleCommand {
                                     )
                             )
                     )
+            );
+            dispatcher.register(literal("dynar_switch")
+                    .requires(source -> source.hasPermissionLevel(2))
+                    .then(literal("collision")
+                            .then(argument("collision", bool())
+                                    .executes(ParticleCommand::setCollisionSwitch)))
+//                    .then(literal("**")
+//                  )
             );
         });
     }
