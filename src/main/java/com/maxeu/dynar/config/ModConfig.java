@@ -1,6 +1,6 @@
 package com.maxeu.dynar.config;
 
-import com.maxeu.dynar.particle.ParticleLimit;
+import com.maxeu.dynar.particle.ParticleSetting;
 import com.maxeu.dynar.utils.Util;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigData;
@@ -21,5 +21,5 @@ public class ModConfig implements ConfigData {
 
     @ConfigEntry.Gui.Tooltip()
     @Comment("max particle amount ranging from 4096 to 131072")
-    public int maxAmount = ParticleLimit.getParticleLimit();
+    public int maxAmount = ParticleSetting.getParticleLimit();
 }

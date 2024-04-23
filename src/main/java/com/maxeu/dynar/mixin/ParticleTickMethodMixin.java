@@ -1,6 +1,6 @@
 package com.maxeu.dynar.mixin;
 
-import com.maxeu.dynar.particle.ParticleSwitch;
+import com.maxeu.dynar.particle.ParticleSetting;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.world.ClientWorld;
@@ -36,9 +36,12 @@ public class ParticleTickMethodMixin {
     @Shadow
     protected double velocityX;
 
+    @Shadow
+    protected float gravityStrength;
+
     @Inject(method = "tick", at = @At("TAIL"))
     private void addCollision(CallbackInfo ci) {
-        if (ParticleSwitch.isCollisionSwitch()) {
+        if (ParticleSetting.isCollisionSwitch()) {
             final double nextPosX = x + velocityX;
             final double nextPosY = y + velocityY;
             final double nextPosZ = z + velocityZ;
@@ -57,6 +60,13 @@ public class ParticleTickMethodMixin {
                     velocityZ = -velocityZ;
                 }
             }
+        }
+    }
+
+    @Inject(method = "tick", at = @At("HEAD"))
+    private void setGravity(CallbackInfo ci) {
+        if (ParticleSetting.isGravitySwitch()) {
+            this.gravityStrength = ParticleSetting.getGravityStrength();
         }
     }
 }

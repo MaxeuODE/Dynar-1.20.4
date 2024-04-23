@@ -1,17 +1,14 @@
 package com.maxeu.dynar.command;
 
 import com.maxeu.dynar.particle.ParticleBuilder;
-import com.maxeu.dynar.particle.ParticleSwitch;
+import com.maxeu.dynar.particle.ParticleInstance;
 import com.mojang.brigadier.context.CommandContext;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.minecraft.command.argument.ParticleEffectArgumentType;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.text.Text;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.random.Random;
-
-import java.util.Objects;
 
 import static com.mojang.brigadier.arguments.BoolArgumentType.bool;
 import static com.mojang.brigadier.arguments.BoolArgumentType.getBool;
@@ -54,15 +51,12 @@ public class ParticleCommand {
         return 1;
     }
 
-    private static int setCollisionSwitch(CommandContext<ServerCommandSource> context) {
-        final boolean bl = getBool(context, "collision");
-        ParticleSwitch.setCollisionSwitch(bl);
-        if (bl) {
-            Objects.requireNonNull(context.getSource().getPlayer()).sendMessage(Text.literal("collision ON"));
-        } else {
-            Objects.requireNonNull(context.getSource().getPlayer()).sendMessage(Text.literal("collision OFF"));
-        }
-        return 1;
+    private static int generateSingleParticle(CommandContext<ServerCommandSource> context) {
+        ParticleInstance.pos = getVec3(context, "center");
+        ParticleInstance.velocity = getVec3(context, "velocity");
+        ParticleInstance.effect = getParticle(context, "particle");
+        ParticleInstance.bl = true;
+        return 0;
     }
 
     /**
@@ -70,19 +64,21 @@ public class ParticleCommand {
      */
     public static void particleSphereCommand() {
         CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            dispatcher.register(literal("sphere")
+            dispatcher.register(literal("dynar-particle-generation")
                     .requires(source -> source.hasPermissionLevel(2))
-                    .then(argument("amount", integer(0))
-                            .then(argument("radius", floatArg(0))
-                                    .then(argument("center", vec3(false))
-                                            .then(argument("velocity", vec3(false))
-                                                    .executes(context -> generateSphere(context, false, false))
-                                                    .then(argument("particle", particleEffect(registryAccess))
+                    .then(literal("sphere")
+                            .then(argument("amount", integer(0))
+                                    .then(argument("radius", floatArg(0))
+                                            .then(argument("center", vec3(false))
+                                                    .then(argument("velocity", vec3(false))
                                                             .executes(context -> generateSphere(context, false, false))
-                                                            .then(argument("dynamic", bool())
-                                                                    .executes(context -> generateSphere(context, getBool(context, "dynamic"), false))
-                                                                    .then(argument("random", bool())
-                                                                            .executes(context -> generateSphere(context, getBool(context, "dynamic"), getBool(context, "random")))
+                                                            .then(argument("particle", particleEffect(registryAccess))
+                                                                    .executes(context -> generateSphere(context, false, false))
+                                                                    .then(argument("dynamic", bool())
+                                                                            .executes(context -> generateSphere(context, getBool(context, "dynamic"), false))
+                                                                            .then(argument("random", bool())
+                                                                                    .executes(context -> generateSphere(context, getBool(context, "dynamic"), getBool(context, "random")))
+                                                                            )
                                                                     )
                                                             )
                                                     )
@@ -90,15 +86,12 @@ public class ParticleCommand {
                                     )
                             )
                     )
-            );
-            dispatcher.register(literal("dynar_switch")
-                    .requires(source -> source.hasPermissionLevel(2))
-                    .then(literal("collision")
-                            .then(argument("collision", bool())
-                                    .executes(ParticleCommand::setCollisionSwitch)))
-//                    .then(literal("**")
-//                  )
-            );
+                    .then(literal("single")
+                            .then(argument("particle", particleEffect(registryAccess))
+                                    .then(argument("center", vec3(false))
+                                            .then(argument("velocity", vec3(false))
+                                                    .executes(ParticleCommand::generateSingleParticle)))
+                            )));
         });
     }
 }
